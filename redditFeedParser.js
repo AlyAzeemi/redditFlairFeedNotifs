@@ -38,7 +38,14 @@ async function queryForUpdates(subReddit) {
           `Found ${postFlair}:${postURL}\n${feed[i].data.title}\n${feed[i].data.selftext}\n`
         );
         //SendMailAndNotify
-        //mailer.sendPost("alykhawar@gmail.com", subReddit.name, postFlair);
+        mailer.sendPost(
+          "alykhawar@gmail.com",
+          subReddit.name,
+          postFlair,
+          postURL,
+          feed[i].data.title,
+          feed[i].data.selftext
+        );
       }
     }
 
