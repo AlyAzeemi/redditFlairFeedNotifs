@@ -10,6 +10,7 @@ const { mongoPass } = require("./secrets.json");
 const mongoPath = `mongodb+srv://aly:${mongoPass}@cluster0.fwdpv.mongodb.net/redditFlairFeedNotifsOmar?retryWrites=true&w=majority`;
 const mongoose = require("mongoose");
 const subRedditSchema = require("./models/subRedditSchema");
+const mailer = require("./mailer");
 
 async function queryForUpdates(subReddit) {
   try {
@@ -33,8 +34,11 @@ async function queryForUpdates(subReddit) {
       }
       if (subReddit.flairs.indexOf(postFlair) >= 0) {
         const postURL = baseURL + feed[i].data.permalink;
-        console.log(`Found ${postFlair}:${postURL}`);
+        console.log(
+          `Found ${postFlair}:${postURL}\n${feed[i].data.title}\n${feed[i].data.selftext}\n`
+        );
         //SendMailAndNotify
+        //mailer.sendPost("alykhawar@gmail.com", subReddit.name, postFlair);
       }
     }
 
@@ -54,9 +58,14 @@ async function main() {
       useUnifiedTopology: true,
     });
     console.log("Connected to MongoDB");
-    const subRedditList = await subRedditSchema.find({});
-    for (let i = 0; i < subRedditList.length; i++) {
-      await queryForUpdates(subRedditList[i]);
+    while (run) {
+      const subRedditList = await subRedditSchema.find({});
+      for (let i = 0; i < subRedditList.length; i++) {
+        await queryForUpdates(subRedditList[i]);
+      }
+
+      //Sleep for 5mins
+      await new Promise((r) => setTimeout(r, 5 * 60 * 1000));
     }
     return;
   } catch (e) {
