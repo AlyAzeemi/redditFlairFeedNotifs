@@ -38,7 +38,7 @@ async function queryForUpdates(subReddit) {
           `Found ${postFlair}:${postURL}\n${feed[i].data.title}\n${feed[i].data.selftext}\n`
         );
         //SendMailAndNotify
-        mailer.sendPost(
+        await mailer.sendPost(
           "alykhawar@gmail.com",
           subReddit.name,
           postFlair,
