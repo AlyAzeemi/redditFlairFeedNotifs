@@ -65,6 +65,7 @@ async function main() {
       useUnifiedTopology: true,
     });
     console.log("Connected to MongoDB");
+
     while (run) {
       const subRedditList = await subRedditSchema.find({});
       for (let i = 0; i < subRedditList.length; i++) {

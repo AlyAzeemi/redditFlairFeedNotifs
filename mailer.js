@@ -10,7 +10,15 @@ var mail = mailClient.createTransport({
   },
 });
 
-async function sendPost(targetEmail, subReddit, flair, link, title, selfText) {
+async function sendPost(
+  targetEmail,
+  subReddit,
+  flair,
+  link,
+  title,
+  selfText,
+  op
+) {
   try {
     let mailOptions = {
       from: serviceEmailAccount.email,
