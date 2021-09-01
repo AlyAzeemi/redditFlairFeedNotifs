@@ -18,6 +18,7 @@
   "homepage": "https://github.com/AlyAzeemi/redditFlairFeedNotifs#readme",
   "dependencies": {
     "axios": "^0.21.1",
+    "express": "^4.17.1",
     "mongoose": "^6.0.2",
     "nodemailer": "^6.6.3"
   }
