@@ -1,11 +1,10 @@
 var mailClient = require("nodemailer");
-const serviceEmailAccount = process.env.serviceEmailAccount;
 var id = 0;
 var mail = mailClient.createTransport({
   service: "gmail",
   auth: {
-    user: serviceEmailAccount.email,
-    pass: serviceEmailAccount.password,
+    user: process.env.serviceAccountEmail,
+    pass: process.env.serviceAccountPassword,
   },
 });
 
