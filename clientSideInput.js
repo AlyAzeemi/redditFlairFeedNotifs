@@ -1,5 +1,6 @@
 module.exports = {
   serverURL: "http://localhost:5000",
+  email: "",
   subRedditList: [
     {
       name: "Destiny",

@@ -12,7 +12,7 @@ const mongoose = require("mongoose");
 const subRedditSchema = require("./models/subRedditSchema");
 const mailer = require("./mailer");
 
-async function queryForUpdates(subReddit) {
+async function queryAndSendUpdates(subReddit, email) {
   try {
     //Generate query
     let baseURL = "https://www.reddit.com";
@@ -38,14 +38,16 @@ async function queryForUpdates(subReddit) {
           `Found ${postFlair}:${postURL}\n${feed[i].data.title}\n${feed[i].data.selftext}\n`
         );
         //SendMailAndNotify
-        await mailer.sendPost(
-          "alykhawar@gmail.com",
-          subReddit.name,
-          postFlair,
-          postURL,
-          feed[i].data.title,
-          feed[i].data.selftext
-        );
+        if (email !== null) {
+          await mailer.sendPost(
+            email,
+            subReddit.name,
+            postFlair,
+            postURL,
+            feed[i].data.title,
+            feed[i].data.selftext
+          );
+        }
       }
     }
 
@@ -57,7 +59,7 @@ async function queryForUpdates(subReddit) {
   }
 }
 
-async function main() {
+async function main(email) {
   try {
     //Retrieve subReddit list from mongoDB
     await mongoose.connect(mongoPath, {
@@ -69,7 +71,7 @@ async function main() {
     while (run) {
       const subRedditList = await subRedditSchema.find({});
       for (let i = 0; i < subRedditList.length; i++) {
-        await queryForUpdates(subRedditList[i]);
+        await queryAndSendUpdates(subRedditList[i], email);
       }
 
       //Sleep for 5mins

@@ -5,6 +5,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const PORT = process.env.PORT || 5000;
+var email = process.env.recipient;
 
 app.post("/", async (req, res) => {
   try {
@@ -36,4 +37,4 @@ app.post("/", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Now Listening on http://localhost:${PORT}`);
 });
-main();
+main(email);

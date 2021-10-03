@@ -1,7 +1,6 @@
 var mailClient = require("nodemailer");
-const { serviceEmailAccount } = require("./secrets.json");
+const serviceEmailAccount = process.env.serviceEmailAccount;
 var id = 0;
-
 var mail = mailClient.createTransport({
   service: "gmail",
   auth: {
@@ -10,15 +9,7 @@ var mail = mailClient.createTransport({
   },
 });
 
-async function sendPost(
-  targetEmail,
-  subReddit,
-  flair,
-  link,
-  title,
-  selfText,
-  op
-) {
+async function sendPost(targetEmail, subReddit, flair, link, title, selfText) {
   try {
     let mailOptions = {
       from: serviceEmailAccount.email,
@@ -44,7 +35,7 @@ async function sendPost(
 }
 async function test() {
   await sendPost(
-    "alykhawar@gmail.com",
+    "",
     "SR",
     "Flair",
     "http://www.google.com",
