@@ -6,7 +6,7 @@
 
 const axios = require("axios");
 let run = true;
-const { mongoPass } = require("./secrets.json");
+const mongoPass = process.env.mongoPass;
 const mongoPath = `mongodb+srv://aly:${mongoPass}@cluster0.fwdpv.mongodb.net/redditFlairFeedNotifsOmar?retryWrites=true&w=majority`;
 const mongoose = require("mongoose");
 const subRedditSchema = require("./models/subRedditSchema");
