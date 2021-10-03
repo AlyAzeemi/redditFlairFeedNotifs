@@ -11,7 +11,7 @@ var mail = mailClient.createTransport({
 async function sendPost(targetEmail, subReddit, flair, link, title, selfText) {
   try {
     let mailOptions = {
-      from: serviceEmailAccount.email,
+      from: process.env.serviceAccountEmail,
       to: targetEmail,
       subject: `New Post:${subReddit}-${flair}`,
       html: `<h2>${title}</h2><p>${selfText}</p>${link}`,
@@ -20,7 +20,7 @@ async function sendPost(targetEmail, subReddit, flair, link, title, selfText) {
         id: id,
         return: "headers",
         notify: ["failure", "delay"],
-        recipient: serviceEmailAccount.email,
+        recipient: process.env.serviceAccountEmail,
       },
     };
     id++;
