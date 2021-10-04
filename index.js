@@ -35,7 +35,7 @@ app.post("/", async (req, res) => {
 });
 
 // To keep awake
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
   try {
     await main(email);
     res.sendStatus(200);
