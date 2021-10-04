@@ -36,10 +36,15 @@ app.post("/", async (req, res) => {
 
 // To keep awake
 app.get("/", (req, res) => {
-  res.send("Cool");
+  try {
+    await main(email);
+    res.sendStatus(200);
+  } catch (e) {
+    console.log(e);
+    res.sendStatus(500);
+  }
 });
 
 app.listen(PORT, () => {
   console.log(`Now Listening on http://localhost:${PORT}`);
 });
-main(email);

@@ -67,15 +67,9 @@ async function main(email) {
       useUnifiedTopology: true,
     });
     console.log("Connected to MongoDB");
-
-    while (run) {
-      const subRedditList = await subRedditSchema.find({});
-      for (let i = 0; i < subRedditList.length; i++) {
-        await queryAndSendUpdates(subRedditList[i], email);
-      }
-
-      //Sleep for 5mins
-      await new Promise((r) => setTimeout(r, 5 * 60 * 1000));
+    const subRedditList = await subRedditSchema.find({});
+    for (let i = 0; i < subRedditList.length; i++) {
+      await queryAndSendUpdates(subRedditList[i], email);
     }
     return;
   } catch (e) {
