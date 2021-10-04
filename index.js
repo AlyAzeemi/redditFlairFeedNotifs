@@ -34,6 +34,11 @@ app.post("/", async (req, res) => {
   }
 });
 
+// To keep awake
+app.get("/", (req, res) => {
+  res.send("Cool");
+});
+
 app.listen(PORT, () => {
   console.log(`Now Listening on http://localhost:${PORT}`);
 });
