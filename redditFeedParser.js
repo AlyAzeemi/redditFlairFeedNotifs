@@ -6,9 +6,8 @@
 
 const axios = require("axios");
 let run = true;
-const { mongoPass } = require("./secrets.json");
-const mongoPassword = process.env.mongoPass || mongoPass;
-const mongoPath = `mongodb+srv://aly:${mongoPassword}@cluster0.fwdpv.mongodb.net/redditFlairFeedNotifsOmar?retryWrites=true&w=majority`;
+const mongoPass = process.env.mongoPass;
+const mongoPath = `mongodb+srv://aly:${mongoPass}@cluster0.fwdpv.mongodb.net/redditFlairFeedNotifsOmar?retryWrites=true&w=majority`;
 const mongoose = require("mongoose");
 const subRedditSchema = require("./models/subRedditSchema");
 const mailer = require("./mailer");
@@ -54,7 +53,6 @@ async function queryAndSendUpdates(subReddit, email) {
 
     //Change LastRead Value
     subReddit.lastRead = feed[0].data.name;
-    console.log("Done.");
     await subReddit.save();
   } catch (e) {
     console.error(e);

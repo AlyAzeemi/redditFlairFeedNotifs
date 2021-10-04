@@ -5,8 +5,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const PORT = process.env.PORT || 5000;
-const { recipient } = require("./secrets.json");
-var email = process.env.recipient || recipient;
+var email = process.env.recipient;
 
 app.post("/", async (req, res) => {
   try {
