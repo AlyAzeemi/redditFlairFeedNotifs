@@ -32,6 +32,9 @@ async function queryAndSendUpdates(subReddit, email) {
       if (feed[i].data.name == subReddit.lastRead) {
         break;
       }
+      if (feed[i].data.created_utc <= subReddit.lastRead_created_utc) {
+        break;
+      }
       if (subReddit.flairs.indexOf(postFlair) >= 0) {
         const postURL = baseURL + feed[i].data.permalink;
         console.log(
@@ -53,6 +56,7 @@ async function queryAndSendUpdates(subReddit, email) {
 
     //Change LastRead Value
     subReddit.lastRead = feed[0].data.name;
+    subReddit.lastRead_created_utc = feed[0].data.created_utc;
     await subReddit.save();
   } catch (e) {
     console.error(e);
