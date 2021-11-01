@@ -29,10 +29,7 @@ async function queryAndSendUpdates(subReddit, email) {
       console.log(i);
       const postFlair = feed[i].data.link_flair_text;
 
-      if (feed[i].data.name == subReddit.lastRead) {
-        break;
-      }
-      if (feed[i].data.created_utc <= subReddit.lastRead_created_utc) {
+      if (feed[i].data.created_utc <= subReddit.lastRead) {
         break;
       }
       if (subReddit.flairs.indexOf(postFlair) >= 0) {
@@ -55,8 +52,7 @@ async function queryAndSendUpdates(subReddit, email) {
     }
 
     //Change LastRead Value
-    subReddit.lastRead = feed[0].data.name;
-    subReddit.lastRead_created_utc = feed[0].data.created_utc;
+    subReddit.lastRead = feed[0].data.created_utc;
     await subReddit.save();
   } catch (e) {
     console.error(e);
