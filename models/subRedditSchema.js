@@ -4,7 +4,7 @@ subRedditSchema = mongoose.Schema(
   {
     name: { type: String, required: true, unique: true },
     flairs: { type: Array, required: true },
-    lastRead: { type: String, default: "" },
+    lastRead: { type: Number, default: "" },
   },
   { timestamps: true }
 );
